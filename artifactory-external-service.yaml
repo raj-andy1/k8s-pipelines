@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: artifactory-external-service
-  namespace: cd4pe
+  namespace: pfc
 spec:
   ports:
   - port: 8081
