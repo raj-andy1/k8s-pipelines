@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pfc-deployment
+  namespace: pfc
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pfc
+    spec:
+      containers:
+      - name: pfc
+        image: puppet/pipelines-for-containers:latest
+        ports:
+        - containerPort: 7000
+          hostPort: 7000
+          protocol: TCP
+        - containerPort: 8080
+          hostPort: 8080
+          protocol: TCP
+        - containerPort: 8000
+          hostPort: 8000
+          protocol: TCP
+        env:
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USER
+              name: pfc-frontend-config
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASS
+              name: pfc-frontend-config
+        - name: DB_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_ENDPOINT
+              name: pfc-frontend-config
+        - name: pfc_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: pfc-secret
+              key: secretkey
