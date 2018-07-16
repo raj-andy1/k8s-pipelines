@@ -24,15 +24,15 @@ spec:
           hostPort: 8000
           protocol: TCP
         env:
-        - name: DB_USER
+        - name: USER
           valueFrom:
             configMapKeyRef:
-              key: DB_USER
+              key: USER
               name: pfc-frontend-config
-        - name: DB_PASS
+        - name: MYSQL_PWD
           valueFrom:
             configMapKeyRef:
-              key: DB_PASS
+              key: MYSQL_PWD
               name: pfc-frontend-config
         - name: DB_ENDPOINT
           valueFrom:
